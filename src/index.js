@@ -44,6 +44,7 @@ class App extends React.Component {
       this.setState({ clockInt: interval });
     } else {
       clearInterval(this.state.clockInt);
+      this.setState({ currentTimer: 0 });
     }
 
     this.setState({ running: !this.state.running });
