@@ -27,6 +27,27 @@ class App extends React.Component {
     };
   }
 
+  componentDidMount = () => {
+    if (localStorage.hasOwnProperty("currentTimer")) {
+      this.setState({
+        currentTimer: JSON.parse(localStorage.getItem("currentTimer"))
+      });
+    }
+    if (localStorage.hasOwnProperty("totalTimer")) {
+      this.setState({
+        totalTimer: JSON.parse(localStorage.getItem("totalTimer"))
+      });
+    }
+  };
+
+  componentDidUpdate() {
+    localStorage.setItem(
+      "currentTimer",
+      JSON.stringify(this.state.currentTimer)
+    );
+    localStorage.setItem("totalTimer", JSON.stringify(this.state.totalTimer));
+  }
+
   toggleClock = e => {
     if (!this.state.running) {
       if (this.state.jobStartTime === null) {
