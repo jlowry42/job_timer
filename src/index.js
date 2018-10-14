@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Clock from "./components/Clock";
+import { MyButton } from "./components/Button";
 
 // all state lives in app?
 // clock just displays time
@@ -31,7 +33,7 @@ class App extends React.Component {
         this.setState({ jobStartTime: Date() });
       }
 
-      this.setState({ startTime: new Date() });
+      this.setState({ startTime: new Date() }); // ??
 
       const interval = setInterval(() => {
         this.setState(prevState => {
@@ -76,10 +78,16 @@ class App extends React.Component {
       <div className="App">
         <h1>Timer</h1>
         <h2>Start editing to see some magic happen!</h2>
-        <button onClick={this.toggleClock}>start</button>
+        <MyButton running={this.state.running} toggle={this.toggleClock}>
+          start
+        </MyButton>
         <h3>{this.state.jobStartTime}</h3>
-        <h4>{this.formatTime(this.state.currentTimer)}</h4>
-        <h4>{this.formatTime(this.state.totalTimer)}</h4>
+        <Clock running={this.state.running}>
+          {this.formatTime(this.state.currentTimer)}
+        </Clock>
+        <Clock running={this.state.running}>
+          {this.formatTime(this.state.totalTimer)}
+        </Clock>
       </div>
     );
   }
