@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Clock from "./components/Clock";
-import { MyButton } from "./components/Button";
+import { MyButton, ResetButton } from "./components/Button";
+import DataForm from "./components/DataForm";
 
 // all state lives in app?
 // clock just displays time
@@ -48,6 +49,14 @@ class App extends React.Component {
     localStorage.setItem("totalTimer", JSON.stringify(this.state.totalTimer));
   }
 
+  onChange = e => {
+    console.log(e.target.name);
+    this.setState({ [e.target.name]: parseFloat(e.target.value) });
+  };
+
+  resetClock = () => {
+    this.setState({ totalTimer: 0, currentTimer: 0 });
+  };
   toggleClock = e => {
     if (!this.state.running) {
       if (this.state.jobStartTime === null) {
@@ -99,9 +108,8 @@ class App extends React.Component {
       <div className="App">
         <h1>Timer</h1>
         <h2>Start editing to see some magic happen!</h2>
-        <MyButton running={this.state.running} toggle={this.toggleClock}>
-          start
-        </MyButton>
+        <MyButton running={this.state.running} toggle={this.toggleClock} />
+        <ResetButton reset={this.resetClock} />
         <h3>{this.state.jobStartTime}</h3>
         <Clock running={this.state.running}>
           {this.formatTime(this.state.currentTimer)}
@@ -109,6 +117,10 @@ class App extends React.Component {
         <Clock running={this.state.running}>
           {this.formatTime(this.state.totalTimer)}
         </Clock>
+        <h3>
+          ${((this.state.amount / this.state.totalTimer) * 3600).toFixed(2)}
+        </h3>
+        <DataForm onChange={this.onChange} />
       </div>
     );
   }

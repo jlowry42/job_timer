@@ -27,3 +27,7 @@ export const MyButton = props => {
 
   return <Button onClick={props.toggle}>{btnText}</Button>;
 };
+
+export const ResetButton = props => {
+  return <Button onClick={props.reset}>Reset </Button>;
+};
