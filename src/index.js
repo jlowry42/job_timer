@@ -1,8 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import Clock from "./components/Clock";
-import { MyButton, ResetButton } from "./components/Button";
-import DataForm from "./components/DataForm";
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './components/Home';
 import History from './components/History';
@@ -15,7 +12,7 @@ import Navbar from './components/Navbar';
 // pay per hour display
 // change interval to 10ths of a second
 
-import "./styles.css";
+import './styles.css';
 
 class App extends React.Component {
   constructor() {
@@ -28,7 +25,7 @@ class App extends React.Component {
       jobStartTime: null,
       startTime: null,
       running: false,
-      clockInt: null
+      clockInt: null,
     };
   }
 
@@ -39,8 +36,8 @@ class App extends React.Component {
         <Navbar />
         <h1>Timer</h1>
         <h2>Start editing to see some magic happen!</h2>
-        <Route exact path="/" 
-        render={ props => <Home  {...this.state} {...props} 
+        <Route exact path="/"
+        render={ props => <Home {...this.state} {...props}
         /> } />
         <Route path="/history"
         render={ props => <History /> }
@@ -50,5 +47,5 @@ class App extends React.Component {
   }
 }
 
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById('root');
 ReactDOM.render(<Router><App /></Router>, rootElement);

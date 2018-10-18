@@ -1,49 +1,58 @@
 import React from 'react';
-import Clock from "./Clock";
-import { MyButton, ResetButton } from "./Button";
-import DataForm from "./DataForm";
+import Clock from './Clock';
+import { MyButton, ResetButton } from './Button';
+import DataForm from './DataForm';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {...props}
+    this.state = { ...props };
   }
 
-  componentDidMount = () => {
-    if (localStorage.hasOwnProperty("currentTimer")) {
+  componentDidMount() {
+    console.log('CDM');
+    if (localStorage.getItem('currentTimer')) {
       this.setState({
-        currentTimer: JSON.parse(localStorage.getItem("currentTimer"))
+        currentTimer: JSON.parse(localStorage.getItem('currentTimer')),
       });
     }
-    if (localStorage.hasOwnProperty("totalTimer")) {
+    if (localStorage.getItem('totalTimer')) {
       this.setState({
-        totalTimer: JSON.parse(localStorage.getItem("totalTimer"))
+        totalTimer: JSON.parse(localStorage.getItem('totalTimer')),
       });
     }
-  };
+
+    // event listener to clear timer on refresh
+    window.addEventListener('beforeunload', this.cleanup());
+  }
+
+  cleanup() {
+    console.log('cleaning up');
+    this.setState({ currentTimer: 0 });
+  }
 
   componentDidUpdate() {
     localStorage.setItem(
-      "currentTimer",
-      JSON.stringify(this.state.currentTimer)
+      'currentTimer',
+      JSON.stringify(this.state.currentTimer),
     );
-    localStorage.setItem("totalTimer", JSON.stringify(this.state.totalTimer));
+    localStorage.setItem('totalTimer', JSON.stringify(this.state.totalTimer));
   }
 
   componentWillUnmount() {
     this.setState({ currentTimer: 0 });
-    localStorage.setItem("currentTimer", JSON.stringify(0));
+    localStorage.setItem('currentTimer', JSON.stringify(0));
   }
 
-onChange = e => {
-    console.log(e.target.name);
+  onChange = e => {
     this.setState({ [e.target.name]: parseFloat(e.target.value) });
   };
 
   resetClock = () => {
     this.setState({ totalTimer: 0, currentTimer: 0 });
   };
-  toggleClock = e => {
+
+  toggleClock = () => {
     if (!this.state.running) {
       if (this.state.jobStartTime === null) {
         this.setState({ jobStartTime: Date() });
@@ -52,10 +61,10 @@ onChange = e => {
       this.setState({ startTime: new Date() }); // ??
 
       const interval = setInterval(() => {
-        this.setState(prevState => {
+        this.setState((prevState) => {
           return {
             currentTimer: prevState.currentTimer + 1,
-            totalTimer: prevState.totalTimer + 1
+            totalTimer: prevState.totalTimer + 1,
           };
         });
       }, 1000);
@@ -68,31 +77,31 @@ onChange = e => {
     this.setState({ running: !this.state.running });
   };
 
+  /* eslint class-methods-use-this: [1, { "exceptMethods": ["formatTime"] } ] */
   formatTime(sec) {
     const minutes = Math.floor(sec / 60);
     const hours = Math.floor(sec / 3600);
     const seconds = sec - hours * 3600 - minutes * 60;
-    let result = "";
+    let result = '';
     if (hours) {
-      result += hours + ":";
+      result += `${hours}:`;
     }
     if (minutes) {
-      result += minutes + ":";
+      result += `${minutes}:`;
     } else {
-      result += "00:";
+      result += '00:';
     }
 
     if (seconds < 10) {
-      result += "0";
+      result += '0';
     }
     result += seconds;
     return result;
   }
 
   render() {
-    console.log(this.state);
     return (
-      <div className='home'>
+      <div className="home">
         <MyButton running={this.state.running} toggle={this.toggleClock} />
         <ResetButton reset={this.resetClock} />
         <h3>{this.state.jobStartTime}</h3>
@@ -106,10 +115,9 @@ onChange = e => {
           ${((this.state.amount / this.state.totalTimer) * 3600).toFixed(2)}
         </h3>
         <DataForm onChange={this.onChange} />
-        </div>
-    )
+      </div>
+    );
   }
 }
 
 export default Home;
-
