@@ -23,7 +23,7 @@ class Home extends React.Component {
     }
 
     // event listener to clear timer on refresh
-    window.addEventListener('beforeunload', this.cleanup());
+    window.addEventListener('beforeunload', this.cleanup);
   }
 
   cleanup() {
@@ -79,8 +79,8 @@ class Home extends React.Component {
 
   /* eslint class-methods-use-this: [1, { "exceptMethods": ["formatTime"] } ] */
   formatTime(sec) {
-    const minutes = Math.floor(sec / 60);
     const hours = Math.floor(sec / 3600);
+    const minutes = Math.floor((sec - hours * 3600) / 60);
     const seconds = sec - hours * 3600 - minutes * 60;
     let result = '';
     if (hours) {
