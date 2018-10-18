@@ -87,6 +87,9 @@ class Home extends React.Component {
       result += `${hours}:`;
     }
     if (minutes) {
+      if ((hours) && minutes < 10) {
+        result += '0';
+      }
       result += `${minutes}:`;
     } else {
       result += '00:';
