@@ -15,21 +15,6 @@ import Navbar from './components/Navbar';
 import './styles.css';
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      totalTimer: 0,
-      currentTimer: 0,
-      amount: 0,
-      payPerHour: null,
-      jobStartTime: null,
-      startTime: null,
-      running: false,
-      clockInt: null,
-    };
-  }
-
-
   render() {
     return (
       <div className="App">
@@ -40,7 +25,7 @@ class App extends React.Component {
         render={ props => <Home {...this.state} {...props}
         /> } />
         <Route path="/history"
-        render={ props => <History /> }
+        render={ props => <History {...props}/> }
         />
       </div>
     );

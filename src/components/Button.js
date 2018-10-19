@@ -1,33 +1,34 @@
-import React from "react";
-import styled, { css } from "styled-components";
+import React from 'react'; // eslint-disable-line no-unused-vars
+import styled, { css } from 'styled-components';
 
 const Button = styled.button`
-  width: 30%;
+  max-width: 180px;
+  min-width: 100px;
   padding: 20px;
   font-size: 18px;
-  background: red;
+  background: ${props => props.bgColor || 'red'};
   color: white;
-border-radius: 30%;
+  border-radius: 10px;
+  margin: 0 10px;
 
-${props =>
-  props.running &&
-  css`
-background: green;
-`}
+  ${props => props.running
+  && css`
+      background: green;
+    `};
 `;
 
 export const MyButton = props => {
   //  const btnText = props.running : "stop" ? "start"; // why won't work?
   let btnText;
   if (props.running) {
-    btnText = "stop";
+    btnText = 'Stop';
   } else {
-    btnText = "start";
+    btnText = 'Start';
   }
 
-  return <Button onClick={props.toggle}>{btnText}</Button>;
+  return <Button onClick={props.toggle} running={props.running}>{btnText}</Button>;
 };
 
 export const ResetButton = props => {
-  return <Button onClick={props.reset}>Reset </Button>;
+  return <Button onClick={props.reset} bgColor="#dcca2f">Reset</Button>;
 };

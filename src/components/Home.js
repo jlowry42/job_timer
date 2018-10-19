@@ -6,7 +6,17 @@ import DataForm from './DataForm';
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { ...props };
+    this.state = {
+      totalTimer: 0,
+      currentTimer: 0,
+      amount: 0,
+      payPerHour: null,
+      jobStartTime: null,
+      startTime: null,
+      running: false,
+      clockInt: null,
+    };
+    // this.state = { ...props };
   }
 
   componentDidMount() {
@@ -24,11 +34,12 @@ class Home extends React.Component {
 
     // event listener to clear timer on refresh
     window.addEventListener('beforeunload', this.cleanup);
+    console.log('cleanup set');
   }
 
   cleanup() {
     console.log('cleaning up');
-    this.setState({ currentTimer: 0 });
+    localStorage.setItem('currentTimer', 0);
   }
 
   componentDidUpdate() {
@@ -77,7 +88,7 @@ class Home extends React.Component {
     this.setState({ running: !this.state.running });
   };
 
-  /* eslint class-methods-use-this: [1, { "exceptMethods": ["formatTime"] } ] */
+  /* eslint class-methods-use-this: [1, { "exceptMethods": ["formatTime", "cleanup"] } ] */
   formatTime(sec) {
     const hours = Math.floor(sec / 3600);
     const minutes = Math.floor((sec - hours * 3600) / 60);
@@ -108,9 +119,11 @@ class Home extends React.Component {
         <MyButton running={this.state.running} toggle={this.toggleClock} />
         <ResetButton reset={this.resetClock} />
         <h3>{this.state.jobStartTime}</h3>
+        <h3>Current Timer</h3>
         <Clock running={this.state.running}>
           {this.formatTime(this.state.currentTimer)}
         </Clock>
+        <h3>Total Timer</h3>
         <Clock running={this.state.running}>
           {this.formatTime(this.state.totalTimer)}
         </Clock>

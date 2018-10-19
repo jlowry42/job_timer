@@ -1,5 +1,4 @@
-import React from "react";
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 const Clock = styled.h3`
   background-color: lightgray;
@@ -7,14 +6,13 @@ const Clock = styled.h3`
   border: 2px solid red;
   border-radius: 5px;
   padding: 10px;
-  width: 50%;
+  width: 20%;
   margin: 10px auto;
 
-${props =>
-  props.running &&
-  css`
-  border: 2px solid green;
-`}
+  ${props => props.running
+  && css`
+      border: 2px solid green;
+    `};
 `;
 
 export default Clock;
