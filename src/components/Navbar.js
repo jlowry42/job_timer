@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+/* eslint-enable no-unused-vars */
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const MyNav = styled.div`
   background-color: gray;
@@ -11,10 +13,10 @@ const MyNav = styled.div`
 const Navbar = () => {
   return (
     <MyNav>
-      <Link to="/">Home</Link>
-      <Link to="/history">History</Link>
+      <Link to='/'>Home</Link>
+      <Link to='/history'>History</Link>
     </MyNav>
-  )
-}
+  );
+};
 
 export default Navbar;

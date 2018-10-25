@@ -5,9 +5,8 @@ import Home from './components/Home';
 import History from './components/History';
 import Navbar from './components/Navbar';
 
-// all state lives in app?
-// clock just displays time
-// button in clock to start/stop time
+// all state lives in app? - NO! in home
+// clock just displays time - nope
 // form to input job amount
 // pay per hour display
 // change interval to 10ths of a second

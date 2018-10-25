@@ -32,6 +32,12 @@ class Home extends React.Component {
       });
     }
 
+    if (localStorage.getItem('jobStartTime')) {
+      this.setState({
+        jobStartTime: JSON.parse(localStorage.getItem('jobStartTime')),
+      });
+    }
+
     // event listener to clear timer on refresh
     window.addEventListener('beforeunload', this.cleanup);
     console.log('cleanup set');
@@ -67,6 +73,7 @@ class Home extends React.Component {
     if (!this.state.running) {
       if (this.state.jobStartTime === null) {
         this.setState({ jobStartTime: Date() });
+        localStorage.setItem('jobStartTime', JSON.stringify(Date() ));
       }
 
       this.setState({ startTime: new Date() }); // ??
@@ -118,7 +125,7 @@ class Home extends React.Component {
       <div className="home">
         <MyButton running={this.state.running} toggle={this.toggleClock} />
         <ResetButton reset={this.resetClock} />
-        <h3>{this.state.jobStartTime}</h3>
+        <h4>Started at: {this.state.jobStartTime}</h4>
         <h3>Current Timer</h3>
         <Clock running={this.state.running}>
           {this.formatTime(this.state.currentTimer)}
