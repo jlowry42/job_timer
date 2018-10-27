@@ -76,7 +76,7 @@ class Home extends React.Component {
         localStorage.setItem('jobStartTime', JSON.stringify(Date() ));
       }
 
-      this.setState({ startTime: new Date() }); // ??
+      this.setState({ startTime: Date() }); // ??
 
       const interval = setInterval(() => {
         this.setState((prevState) => {
@@ -125,14 +125,15 @@ class Home extends React.Component {
       <div className="home">
         <MyButton running={this.state.running} toggle={this.toggleClock} />
         <ResetButton reset={this.resetClock} />
-        <h4>Started at: {this.state.jobStartTime}</h4>
-        <h3>Current Timer</h3>
-        <Clock running={this.state.running}>
-          {this.formatTime(this.state.currentTimer)}
-        </Clock>
         <h3>Total Timer</h3>
+        <h4>Job started at: {this.state.jobStartTime}</h4>
         <Clock running={this.state.running}>
           {this.formatTime(this.state.totalTimer)}
+        </Clock>
+        <h3>Current Timer</h3>
+        <h4>Current Timer started at {this.state.startTime}</h4>
+        <Clock running={this.state.running}>
+          {this.formatTime(this.state.currentTimer)}
         </Clock>
         <h3>
           ${((this.state.amount / this.state.totalTimer) * 3600).toFixed(2)}

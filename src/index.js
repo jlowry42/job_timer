@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './components/Home';
@@ -13,23 +13,22 @@ import Navbar from './components/Navbar';
 
 import './styles.css';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div className="App">
-        <Navbar />
-        <h1>Timer</h1>
-        <h2>Start editing to see some magic happen!</h2>
-        <Route exact path="/"
-        render={ props => <Home {...this.state} {...props}
-        /> } />
-        <Route path="/history"
-        render={ props => <History {...props}/> }
-        />
-      </div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <div className="App">
+      <Navbar />
+      <h1>Job Timer</h1>
+      <hr />
+      <Route exact path="/" render={props => <Home {...props} />} />
+      <Route path="/history" render={props => <History {...props} />} />
+    </div>
+  );
+};
 
 const rootElement = document.getElementById('root');
-ReactDOM.render(<Router><App /></Router>, rootElement);
+ReactDOM.render(
+  <Router>
+    <App />
+  </Router>,
+  rootElement,
+);
