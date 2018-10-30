@@ -13,22 +13,51 @@ import Navbar from './components/Navbar';
 
 import './styles.css';
 
-const App = () => {
-  return (
-    <div className="App">
-      <Navbar />
-      <h1>Job Timer</h1>
-      <hr />
-      <Route exact path="/" render={props => <Home {...props} />} />
-      <Route path="/history" render={props => <History {...props} />} />
-    </div>
-  );
-};
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      completedJobs: [
+        {
+          id: 0,
+          name: 'test job',
+          time: '3:50',
+          amount: '1.23',
+          perHour: '20.00',
+        },
+        {
+          id: 1,
+          name: 'another job',
+          time: '8:50',
+          amount: '8.23',
+          perHour: '30.00',
+        },
+      ],
+    };
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Navbar />
+        <h1>Job Timer</h1>
+        <hr />
+        <Route exact path="/" render={props => <Home {...props} />} />
+        <Route
+          path="/history"
+          render={props => (
+            <History {...props} completedJobs={this.state.completedJobs} />
+          )}
+        />
+      </div>
+    );
+  }
+}
 
 const rootElement = document.getElementById('root');
 ReactDOM.render(
   <Router>
     <App />
   </Router>,
-  rootElement,
+  rootElement
 );

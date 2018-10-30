@@ -15,6 +15,7 @@ class Home extends React.Component {
       startTime: null,
       running: false,
       clockInt: null,
+      completedJobs: [],
     };
     // this.state = { ...props };
   }
