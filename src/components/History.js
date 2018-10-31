@@ -12,7 +12,7 @@ class History extends React.Component {
   }
 
   render() {
-    console.log(this.state.completedJobs)
+    console.log(this.state.completedJobs);
     return (
       <div>
         <h2>Completed Jobs</h2>

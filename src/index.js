@@ -36,13 +36,25 @@ class App extends React.Component {
     };
   }
 
+  getCompletedJob = (job) => {
+    console.log(job);
+    console.log(this.state.completedJobs);
+    const updatedJobs = [...this.state.completedJobs, job];
+    console.log(updatedJobs);
+    // updatedJobs.push(job);
+    this.setState({
+      completedJobs: updatedJobs,
+    });
+    console.log('update complete:', this.state.completedJobs);
+  }
+
   render() {
     return (
       <div className="App">
         <Navbar />
         <h1>Job Timer</h1>
         <hr />
-        <Route exact path="/" render={props => <Home {...props} />} />
+        <Route exact path="/" render={props => <Home {...props} getCompletedJob={this.getCompletedJob}/>} />
         <Route
           path="/history"
           render={props => (
@@ -59,5 +71,5 @@ ReactDOM.render(
   <Router>
     <App />
   </Router>,
-  rootElement
+  rootElement,
 );

@@ -6,16 +6,18 @@ import DataForm from './DataForm';
 class Home extends React.Component {
   constructor(props) {
     super(props);
+    this.getCompletedJob = props.getCompletedJob.bind(this);
     this.state = {
       totalTimer: 0,
       currentTimer: 0,
       amount: 0,
+      jobName: '',
       payPerHour: null,
       jobStartTime: null,
       startTime: null,
       running: false,
       clockInt: null,
-      completedJobs: [],
+      completedJobs: props.completedJobs,
     };
     // this.state = { ...props };
   }
@@ -63,12 +65,24 @@ class Home extends React.Component {
   }
 
   onChange = e => {
-    this.setState({ [e.target.name]: parseFloat(e.target.value) });
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   resetClock = () => {
     this.setState({ totalTimer: 0, currentTimer: 0 });
   };
+
+  completeJob = (e) => {
+    e.preventDefault();
+    const newJob = {
+      id: Date.now(),
+      name: this.state.jobName,
+      time: this.formatTime(this.state.totalTimer),
+      amount: this.state.amount,
+      payPerHour: this.state.payPerHour,
+    };
+    this.getCompletedJob(newJob);
+  }
 
   toggleClock = () => {
     if (!this.state.running) {
@@ -139,7 +153,7 @@ class Home extends React.Component {
         <h3>
           ${((this.state.amount / this.state.totalTimer) * 3600).toFixed(2)}
         </h3>
-        <DataForm onChange={this.onChange} />
+        <DataForm onChange={this.onChange} completeJob={this.completeJob}/>
       </div>
     );
   }
