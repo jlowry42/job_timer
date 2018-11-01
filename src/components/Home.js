@@ -2,6 +2,7 @@ import React from 'react';
 import Clock from './Clock';
 import { MyButton, ResetButton } from './Button';
 import DataForm from './DataForm';
+import { Object } from 'core-js';
 
 class Home extends React.Component {
   constructor(props) {
@@ -22,28 +23,34 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem('currentTimer')) {
-      this.setState({
-        currentTimer: JSON.parse(localStorage.getItem('currentTimer')),
-      });
-    }
-    if (localStorage.getItem('totalTimer')) {
-      this.setState({
-        totalTimer: JSON.parse(localStorage.getItem('totalTimer')),
-      });
-    }
-
-    if (localStorage.getItem('jobStartTime')) {
-      this.setState({
-        jobStartTime: JSON.parse(localStorage.getItem('jobStartTime')),
-      });
-
-      if (localStorage.getItem('jobName')) {
-        this.setState({
-          jobName: JSON.parse(localStorage.getItem('jobName')),
-        });
+    Object.keys(this.state).forEach(key => {
+      if (localStorage.getItem(key)) {
+        console.log(key);
+        this.setState({ [key]: JSON.parse(localStorage.getItem(key)) });
       }
-    }
+    });
+    // if (localStorage.getItem('currentTimer')) {
+    //   this.setState({
+    //     currentTimer: JSON.parse(localStorage.getItem('currentTimer')),
+    //   });
+    // }
+    // if (localStorage.getItem('totalTimer')) {
+    //   this.setState({
+    //     totalTimer: JSON.parse(localStorage.getItem('totalTimer')),
+    //   });
+    // }
+
+    // if (localStorage.getItem('jobStartTime')) {
+    //   this.setState({
+    //     jobStartTime: JSON.parse(localStorage.getItem('jobStartTime')),
+    //   });
+
+    //   if (localStorage.getItem('jobName')) {
+    //     this.setState({
+    //       jobName: JSON.parse(localStorage.getItem('jobName')),
+    //     });
+    //   }
+    // }
 
     // event listener to clear timer on refresh
     window.addEventListener('beforeunload', this.cleanup);

@@ -30,17 +30,15 @@ class App extends React.Component {
   }
 
   getCompletedJob = job => {
-    console.log('gcj');
     const updatedJobs = [...this.state.completedJobs, job];
     this.setState(
       {
         completedJobs: updatedJobs,
       },
       function() { // using this callback function ensures it will run after setState
-        console.log('in function');
         localStorage.setItem(
           'completedJobs',
-          JSON.stringify(this.state.completedJobs)
+          JSON.stringify(this.state.completedJobs),
         );
       }
     );
