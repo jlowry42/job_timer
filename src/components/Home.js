@@ -1,8 +1,9 @@
 import React from 'react';
+import { Object } from 'core-js';
+
 import Clock from './Clock';
 import { MyButton, ResetButton } from './Button';
 import DataForm from './DataForm';
-import { Object } from 'core-js';
 
 class Home extends React.Component {
   constructor(props) {
@@ -87,7 +88,7 @@ class Home extends React.Component {
 
   completeJob = e => {
     e.preventDefault();
-    if (this.state.jobName && this.state.amount) {
+    if (this.state.jobName && this.state.amount && this.state.totalTimer) {
       const newJob = {
         id: Date.now(),
         name: this.state.jobName,

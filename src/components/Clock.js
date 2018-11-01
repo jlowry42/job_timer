@@ -8,6 +8,7 @@ const Clock = styled.h3`
   padding: 10px;
   width: 20%;
   margin: 10px auto;
+  color: #020202;
 
   ${props => props.running
   && css`

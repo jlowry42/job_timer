@@ -2,3 +2,16 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+h1 {
+  font-family: 'Roboto Slab', serif;
+}
+
+.home {
+  background-color: #24263b;
+  width: 50%;
+  margin: 0 auto;
+  border-radius: 10px;
+  padding: 20px;
+  color: #efe5f0;
+}

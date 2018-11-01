@@ -30,5 +30,5 @@ export const MyButton = props => {
 };
 
 export const ResetButton = props => {
-  return <Button onClick={props.reset} bgColor="#dcca2f">Reset</Button>;
+  return <Button onClick={props.reset} bgColor="#0a0a0a">Reset</Button>;
 };
