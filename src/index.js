@@ -22,11 +22,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log('app mounted');
     for (let key in this.state) {
-      console.log(key);
       if (localStorage.getItem(key)) {
-        console.log('yep');
         this.setState({ [key]: JSON.parse(localStorage.getItem(key)) });
       }
     }
