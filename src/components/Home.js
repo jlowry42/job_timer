@@ -17,13 +17,11 @@ class Home extends React.Component {
       startTime: null,
       running: false,
       clockInt: null,
-      completedJobs: props.completedJobs,
     };
     // this.state = { ...props };
   }
 
   componentDidMount() {
-    console.log('CDM');
     if (localStorage.getItem('currentTimer')) {
       this.setState({
         currentTimer: JSON.parse(localStorage.getItem('currentTimer')),
@@ -49,7 +47,6 @@ class Home extends React.Component {
 
     // event listener to clear timer on refresh
     window.addEventListener('beforeunload', this.cleanup);
-    console.log('cleanup set');
   }
 
   cleanup() {
@@ -150,7 +147,6 @@ class Home extends React.Component {
   }
 
   render() {
-      console.log('rendering home');
     return (
       <div className="home">
         <MyButton running={this.state.running} toggle={this.toggleClock} />

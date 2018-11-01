@@ -5,14 +5,12 @@ import React from 'react';
 class History extends React.Component {
   constructor(props) {
     super();
-    console.log(props);
     this.state = {
       completedJobs: props.completedJobs,
     };
   }
 
   render() {
-    console.log(this.state.completedJobs);
     return (
       <div>
         <h2>Completed Jobs</h2>

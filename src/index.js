@@ -17,37 +17,37 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      completedJobs: [
-        {
-          id: 0,
-          name: 'test job',
-          time: '3:50',
-          amount: '1.23',
-          perHour: '20.00',
-        },
-        {
-          id: 1,
-          name: 'another job',
-          time: '8:50',
-          amount: '8.23',
-          perHour: '30.00',
-        },
-      ],
+      completedJobs: [],
     };
   }
 
-  getCompletedJob = (job) => {
-    console.log(job);
-    console.log(this.state.completedJobs);
-    const updatedJobs = [...this.state.completedJobs, job];
-    console.log(updatedJobs);
-    // updatedJobs.push(job);
-    this.setState({
-      completedJobs: updatedJobs,
-    });
-    localStorage.setItem("completedJobs", JSON.stringify(this.state.completedJobs));
-    console.log('update complete:', this.state.completedJobs);
+  componentDidMount() {
+    console.log('app mounted');
+    for (let key in this.state) {
+      console.log(key);
+      if (localStorage.getItem(key)) {
+        console.log('yep');
+        this.setState({ [key]: JSON.parse(localStorage.getItem(key)) });
+      }
+    }
   }
+
+  getCompletedJob = job => {
+    console.log('gcj');
+    const updatedJobs = [...this.state.completedJobs, job];
+    this.setState(
+      {
+        completedJobs: updatedJobs,
+      },
+      function() { // using this callback function ensures it will run after setState
+        console.log('in function');
+        localStorage.setItem(
+          'completedJobs',
+          JSON.stringify(this.state.completedJobs)
+        );
+      }
+    );
+  };
 
   render() {
     return (
@@ -55,7 +55,13 @@ class App extends React.Component {
         <Navbar />
         <h1>Job Timer</h1>
         <hr />
-        <Route exact path="/" render={props => <Home {...props} getCompletedJob={this.getCompletedJob}/>} />
+        <Route
+          exact
+          path="/"
+          render={props => (
+            <Home {...props} getCompletedJob={this.getCompletedJob} />
+          )}
+        />
         <Route
           path="/history"
           render={props => (
@@ -72,5 +78,5 @@ ReactDOM.render(
   <Router>
     <App />
   </Router>,
-  rootElement,
+  rootElement
 );
