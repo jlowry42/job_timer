@@ -25,7 +25,6 @@ class Home extends React.Component {
   componentDidMount() {
     Object.keys(this.state).forEach(key => {
       if (localStorage.getItem(key)) {
-        console.log(key);
         this.setState({ [key]: JSON.parse(localStorage.getItem(key)) });
       }
     });
@@ -64,7 +63,7 @@ class Home extends React.Component {
   componentDidUpdate() {
     localStorage.setItem(
       'currentTimer',
-      JSON.stringify(this.state.currentTimer),
+      JSON.stringify(this.state.currentTimer)
     );
     localStorage.setItem('totalTimer', JSON.stringify(this.state.totalTimer));
   }
@@ -86,33 +85,38 @@ class Home extends React.Component {
     this.setState({ totalTimer: 0, currentTimer: 0 });
   };
 
-  completeJob = (e) => {
+  completeJob = e => {
     e.preventDefault();
-    const newJob = {
-      id: Date.now(),
-      name: this.state.jobName,
-      time: this.formatTime(this.state.totalTimer),
-      amount: this.state.amount,
-      payPerHour: (this.state.amount / this.state.totalTimer * 3600).toFixed(2),
-    };
-    this.getCompletedJob(newJob);
-    this.resetClock();
-    this.setState({ jobName: '', amount: '' });
-    localStorage.setItem('jobName', '');
-    localStorage.setItem('amount', '');
-  }
+    if (this.state.jobName && this.state.amount) {
+      const newJob = {
+        id: Date.now(),
+        name: this.state.jobName,
+        time: this.formatTime(this.state.totalTimer),
+        amount: this.state.amount,
+        payPerHour: (
+          (this.state.amount / this.state.totalTimer) *
+          3600
+        ).toFixed(2),
+      };
+      this.getCompletedJob(newJob);
+      this.resetClock();
+      this.setState({ jobName: '', amount: '' });
+      localStorage.setItem('jobName', '');
+      localStorage.setItem('amount', '');
+    }
+  };
 
   toggleClock = () => {
     if (!this.state.running) {
       if (this.state.jobStartTime === null) {
         this.setState({ jobStartTime: Date() });
-        localStorage.setItem('jobStartTime', JSON.stringify(Date() ));
+        localStorage.setItem('jobStartTime', JSON.stringify(Date()));
       }
 
       this.setState({ startTime: Date() }); // ??
 
       const interval = setInterval(() => {
-        this.setState((prevState) => {
+        this.setState(prevState => {
           return {
             currentTimer: prevState.currentTimer + 1,
             totalTimer: prevState.totalTimer + 1,
@@ -138,7 +142,7 @@ class Home extends React.Component {
       result += `${hours}:`;
     }
     if (minutes) {
-      if ((hours) && minutes < 10) {
+      if (hours && minutes < 10) {
         result += '0';
       }
       result += `${minutes}:`;
@@ -171,8 +175,12 @@ class Home extends React.Component {
         <h3>
           ${((this.state.amount / this.state.totalTimer) * 3600).toFixed(2)}
         </h3>
-        <DataForm onChange={this.onChange} completeJob={this.completeJob}
-          amount={this.state.amount} jobName={this.state.jobName}/>
+        <DataForm
+          onChange={this.onChange}
+          completeJob={this.completeJob}
+          amount={this.state.amount}
+          jobName={this.state.jobName}
+        />
       </div>
     );
   }

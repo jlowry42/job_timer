@@ -12,6 +12,7 @@ import Navbar from './components/Navbar';
 // change interval to 10ths of a second
 
 import './styles.css';
+import { Object } from 'core-js';
 
 class App extends React.Component {
   constructor() {
@@ -22,11 +23,16 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    for (let key in this.state) {
+    Object.keys(this.state).forEach(key => {
       if (localStorage.getItem(key)) {
         this.setState({ [key]: JSON.parse(localStorage.getItem(key)) });
       }
-    }
+    });
+    // for (let key in this.state) {
+    //   if (localStorage.getItem(key)) {
+    //     this.setState({ [key]: JSON.parse(localStorage.getItem(key)) });
+    //   }
+    // }
   }
 
   getCompletedJob = job => {
