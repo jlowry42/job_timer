@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+import StyledTable from './Table';
 
 class History extends React.Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class History extends React.Component {
     return (
       <div>
         <h2>Completed Jobs</h2>
-        <table>
+        <StyledTable>
           <tbody>
             <tr>
               <th>Name</th>
@@ -31,7 +32,7 @@ class History extends React.Component {
               </tr>
             ))}
           </tbody>
-        </table>
+        </StyledTable>
       </div>
     );
   }
