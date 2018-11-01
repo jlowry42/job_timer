@@ -29,7 +29,7 @@ class History extends React.Component {
                 <td>{job.name}</td>
                 <td>{job.amount}</td>
                 <td>{job.time}</td>
-                <td>{job.perHour}</td>
+                <td>{job.payPerHour}</td>
               </tr>
             ))}
           </tbody>

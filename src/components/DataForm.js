@@ -18,7 +18,7 @@ const DataForm = props => {
       value={props.jobName}
       onChange={props.onChange}
     />
-    <input type="submit" onSubmit={props.completeJob}/>
+    <button type="submit" onSubmit={props.completeJob}>Finish Job</button>
     </form>
   );
 };

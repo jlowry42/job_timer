@@ -10,7 +10,7 @@ class Home extends React.Component {
     this.state = {
       totalTimer: 0,
       currentTimer: 0,
-      amount: 0,
+      amount: '',
       jobName: '',
       payPerHour: null,
       jobStartTime: null,
@@ -39,6 +39,12 @@ class Home extends React.Component {
       this.setState({
         jobStartTime: JSON.parse(localStorage.getItem('jobStartTime')),
       });
+
+      if (localStorage.getItem('jobName')) {
+        this.setState({
+          jobName: JSON.parse(localStorage.getItem('jobName')),
+        });
+      }
     }
 
     // event listener to clear timer on refresh
@@ -66,6 +72,7 @@ class Home extends React.Component {
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+    localStorage.setItem(e.target.name, JSON.stringify(e.target.value));
   };
 
   resetClock = () => {
@@ -82,11 +89,13 @@ class Home extends React.Component {
       name: this.state.jobName,
       time: this.formatTime(this.state.totalTimer),
       amount: this.state.amount,
-      payPerHour: this.state.payPerHour,
+      payPerHour: (this.state.amount / this.state.totalTimer * 3600).toFixed(2),
     };
     this.getCompletedJob(newJob);
     this.resetClock();
-    this.setState({ jobName: '', amount: ''});
+    this.setState({ jobName: '', amount: '' });
+    localStorage.setItem('jobName', '');
+    localStorage.setItem('amount', '');
   }
 
   toggleClock = () => {
@@ -141,6 +150,7 @@ class Home extends React.Component {
   }
 
   render() {
+      console.log('rendering home');
     return (
       <div className="home">
         <MyButton running={this.state.running} toggle={this.toggleClock} />
@@ -158,7 +168,8 @@ class Home extends React.Component {
         <h3>
           ${((this.state.amount / this.state.totalTimer) * 3600).toFixed(2)}
         </h3>
-        <DataForm onChange={this.onChange} completeJob={this.completeJob}/>
+        <DataForm onChange={this.onChange} completeJob={this.completeJob}
+          amount={this.state.amount} jobName={this.state.jobName}/>
       </div>
     );
   }
