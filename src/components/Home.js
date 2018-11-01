@@ -69,6 +69,9 @@ class Home extends React.Component {
   };
 
   resetClock = () => {
+    if (this.state.running) {
+      this.toggleClock();
+    }
     this.setState({ totalTimer: 0, currentTimer: 0 });
   };
 
@@ -82,6 +85,8 @@ class Home extends React.Component {
       payPerHour: this.state.payPerHour,
     };
     this.getCompletedJob(newJob);
+    this.resetClock();
+    this.setState({ jobName: '', amount: ''});
   }
 
   toggleClock = () => {

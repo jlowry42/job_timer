@@ -45,6 +45,7 @@ class App extends React.Component {
     this.setState({
       completedJobs: updatedJobs,
     });
+    localStorage.setItem("completedJobs", JSON.stringify(this.state.completedJobs));
     console.log('update complete:', this.state.completedJobs);
   }
 
