@@ -83,7 +83,7 @@ class Home extends React.Component {
     if (this.state.running) {
       this.toggleClock();
     }
-    this.setState({ totalTimer: 0, currentTimer: 0 });
+    this.setState({ totalTimer: 0, currentTimer: 0, jobStartTime: null, startTime: null });
   };
 
   completeJob = e => {
