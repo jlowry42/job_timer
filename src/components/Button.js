@@ -15,6 +15,11 @@ const Button = styled.button`
   && css`
       background: green;
     `};
+  
+  &:hover {
+    font-weight: bold;
+    color: blue;
+  }
 `;
 
 export const MyButton = props => {
