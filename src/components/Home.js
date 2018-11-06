@@ -70,6 +70,7 @@ class Home extends React.Component {
   completeJob = e => {
     e.preventDefault();
     if (this.state.jobName && this.state.amount && this.state.totalTimer) {
+      const d = new Date();
       const newJob = {
         id: Date.now(),
         name: this.state.jobName,
@@ -79,6 +80,7 @@ class Home extends React.Component {
           (this.state.amount / this.state.totalTimer) *
           3600
         ).toFixed(2),
+        finishDate: `${d.getUTCMonth() + 1}/${d.getUTCDate()}`,
       };
       this.getCompletedJob(newJob);
       this.resetClock();

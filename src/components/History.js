@@ -18,6 +18,7 @@ class History extends React.Component {
         <StyledTable>
           <tbody>
             <tr>
+              <th>Date</th>
               <th>Name</th>
               <th>Pay</th>
               <th>Time</th>
@@ -25,10 +26,12 @@ class History extends React.Component {
             </tr>
             {this.state.completedJobs.map(job => (
               <tr key={job.id}>
+                <td>{job.finishDate}</td>
                 <td>{job.name}</td>
                 <td>{job.amount}</td>
                 <td>{job.time}</td>
                 <td>{job.payPerHour}</td>
+                <td><button>Edit</button></td>
               </tr>
             ))}
           </tbody>
