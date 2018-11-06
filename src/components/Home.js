@@ -1,5 +1,7 @@
 import React from 'react';
 import { Object } from 'core-js';
+import running_favicon from './../img/running_favicon.png';
+import stopped_favicon from './../img/stopped_favicon.png';
 
 import Clock from './Clock';
 import { MyButton, ResetButton } from './Button';
@@ -24,35 +26,14 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
+    // this works: document.getElementById('favicon').href = 'http://www.cutestpaw.com/wp-content/uploads/2016/02/s-Kitty-yoga.%281%29.jpg'
+    this.favicon = document.getElementById('favicon');
+    this.favicon.href = stopped_favicon;
     Object.keys(this.state).forEach(key => {
       if (localStorage.getItem(key)) {
         this.setState({ [key]: JSON.parse(localStorage.getItem(key)) });
       }
     });
-    // if (localStorage.getItem('currentTimer')) {
-    //   this.setState({
-    //     currentTimer: JSON.parse(localStorage.getItem('currentTimer')),
-    //   });
-    // }
-    // if (localStorage.getItem('totalTimer')) {
-    //   this.setState({
-    //     totalTimer: JSON.parse(localStorage.getItem('totalTimer')),
-    //   });
-    // }
-
-    // if (localStorage.getItem('jobStartTime')) {
-    //   this.setState({
-    //     jobStartTime: JSON.parse(localStorage.getItem('jobStartTime')),
-    //   });
-
-    //   if (localStorage.getItem('jobName')) {
-    //     this.setState({
-    //       jobName: JSON.parse(localStorage.getItem('jobName')),
-    //     });
-    //   }
-    // }
-
-    // event listener to clear timer on refresh
     window.addEventListener('beforeunload', this.cleanup);
   }
 
@@ -109,6 +90,7 @@ class Home extends React.Component {
 
   toggleClock = () => {
     if (!this.state.running) {
+      this.favicon.href = running_favicon;
       if (this.state.jobStartTime === null) {
         this.setState({ jobStartTime: Date() });
         localStorage.setItem('jobStartTime', JSON.stringify(Date()));
@@ -126,6 +108,7 @@ class Home extends React.Component {
       }, 1000);
       this.setState({ clockInt: interval });
     } else {
+      this.favicon.href = stopped_favicon;
       clearInterval(this.state.clockInt);
       this.setState({ currentTimer: 0 });
     }
