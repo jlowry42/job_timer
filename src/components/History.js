@@ -2,6 +2,7 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 import StyledTable from './Table';
+import { Button } from './Button';
 
 class History extends React.Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class History extends React.Component {
                 <td>{job.amount}</td>
                 <td>{job.time}</td>
                 <td>{job.payPerHour}</td>
-                <td><button onClick={this.props.editJob}>Edit</button></td>
+                <td><Button bgColor='black' padding='10px' onClick={this.props.editJob}>Edit</Button></td>
               </tr>
             ))}
           </tbody>

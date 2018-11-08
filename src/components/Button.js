@@ -1,10 +1,10 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import styled, { css } from 'styled-components';
 
-const Button = styled.button`
+export const Button = styled.button`
   max-width: 180px;
   min-width: 100px;
-  padding: 20px;
+  padding: ${props => props.padding || '20px'};
   font-size: 18px;
   background: ${props => props.bgColor || 'red'};
   color: white;
