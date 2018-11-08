@@ -25,13 +25,13 @@ class History extends React.Component {
               <th>Pay Per Hour</th>
             </tr>
             {this.state.completedJobs.map(job => (
-              <tr key={job.id}>
+              <tr key={job.id} id={job.id}>
                 <td>{job.finishDate}</td>
                 <td>{job.name}</td>
                 <td>{job.amount}</td>
                 <td>{job.time}</td>
                 <td>{job.payPerHour}</td>
-                <td><button>Edit</button></td>
+                <td><button onClick={this.props.editJob}>Edit</button></td>
               </tr>
             ))}
           </tbody>

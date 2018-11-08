@@ -35,6 +35,11 @@ class App extends React.Component {
     // }
   }
 
+  editJob = (e) => {
+    const val = e.target.parentElement.parentElement.id;
+    console.log('id is', val);
+  }
+
   getCompletedJob = job => {
     const updatedJobs = [...this.state.completedJobs, job];
     this.setState(
@@ -66,7 +71,7 @@ class App extends React.Component {
         <Route
           path="/history"
           render={props => (
-            <History {...props} completedJobs={this.state.completedJobs} />
+            <History {...props} editJob={this.editJob} completedJobs={this.state.completedJobs} />
           )}
         />
       </div>
