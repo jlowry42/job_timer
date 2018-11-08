@@ -38,20 +38,28 @@ class App extends React.Component {
   editJob = e => {
     const val = Number(e.target.parentElement.parentElement.id);
     const newAmount = prompt("Enter new amount");
+    console.log('newAmt', newAmount);
     const newCompleted = this.state.completedJobs.map(job => {
       if (job.id === val) {
         job.amount = newAmount;
         const splitTime = job.time.split(":");
-        const min = splitTime[splitTime.length - 2];
+        const min = Number(splitTime[splitTime.length - 2]);
         let hrs = 0;
         if (splitTime.length > 2) {
-          hrs = splitTime[splitTime.length - 3];
+          hrs = Number(splitTime[splitTime.length - 3]);
         }
-        console.log(hrs);
-        const seconds = splitTime[splitTime.length - 1];
-        job.payPerHour = (
-          Number(newAmount / (hrs * 3600 + min * 60 + seconds)) * 3600
-        ).toFixed(2);
+        console.log('min:',min);
+        console.log('hrs:',hrs);
+        const seconds = Number(splitTime[splitTime.length - 1]);
+        console.log('seconds:', seconds);
+        const totalSeconds = (hrs * 3600) + (min * 60) + seconds;
+        console.log('totalSeconds:',totalSeconds);
+        job.payPerHour = 
+          newAmount / totalSeconds * 3600
+        .toFixed(2);
+        console.log(newAmount);
+        console.log('totalSeconds:',totalSeconds);
+        console.log(job.payPerHour);
       }
       return job;
     });
