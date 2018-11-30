@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const MyNav = styled.div`
@@ -17,16 +17,20 @@ const MyNav = styled.div`
     text-decoration: none;
     padding: 10px 100px;
     font-weight: bold;
-    color: #65c343;
+    color: #78788e;
     font-size: 26px;
+
+    &.active {
+      color: #65c343;
+  }
   }
 `;
 
 const Navbar = () => {
   return (
     <MyNav>
-      <Link to='/'>Current Job</Link>
-      <Link to='/history'>Completed Jobs</Link>
+      <NavLink exact to='/'>Current Job</NavLink>
+      <NavLink to='/history'>Completed Jobs</NavLink>
     </MyNav>
   );
 };

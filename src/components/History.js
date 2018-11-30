@@ -3,6 +3,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import StyledTable from './Table';
 import { Button } from './Button';
+import PopUpForm from './EditForm';
 
 class History extends React.Component {
   constructor(props) {
@@ -13,7 +14,9 @@ class History extends React.Component {
   }
 
   render() {
-    return (
+    return this.props.popUp ? (
+      <PopUpForm>Form</PopUpForm>
+    ) : (
       <div>
         <h2>Completed Jobs</h2>
         <StyledTable>
@@ -32,7 +35,15 @@ class History extends React.Component {
                 <td>{job.amount}</td>
                 <td>{job.time}</td>
                 <td>{job.payPerHour}</td>
-                <td><Button bgColor='black' padding='10px' onClick={this.props.editJob}>Edit</Button></td>
+                <td>
+                  <Button
+                    bgColor="black"
+                    padding="10px"
+                    // onClick={this.props.editJob}
+                  >
+                    Edit
+                  </Button>
+                </td>
               </tr>
             ))}
           </tbody>

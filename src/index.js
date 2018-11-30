@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './components/Home';
 import History from './components/History';
 import Navbar from './components/Navbar';
+import PopupForm from './components/EditForm';
 
 // all state lives in app? - NO! in home
 // clock just displays time - nope
@@ -19,6 +20,7 @@ class App extends React.Component {
     super();
     this.state = {
       completedJobs: [],
+      popUp: false,
     };
   }
 
@@ -36,9 +38,12 @@ class App extends React.Component {
   }
 
   editJob = e => {
+    this.setState({ popUp: true });
+
     const val = Number(e.target.parentElement.parentElement.id);
-    const newAmount = prompt('Enter new amount');
+    // const newAmount = prompt('Enter new amount');
     // console.log('newAmt', newAmount);
+    const newAmount = 100;
     if (newAmount) {
       const newCompleted = this.state.completedJobs.map(job => {
         if (job.id === val) {
@@ -104,6 +109,7 @@ class App extends React.Component {
               {...props}
               editJob={this.editJob}
               completedJobs={this.state.completedJobs}
+              popUp={this.state.popUp}
             />
           )}
         />
