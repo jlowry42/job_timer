@@ -2,6 +2,12 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 import { NavLink } from 'react-router-dom';
+import AppBar from '@material-ui/core/AppBar';
+import Link from '@material-ui/core/Link';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
 import styled from 'styled-components';
 
 const MyNav = styled.div`
@@ -26,13 +32,39 @@ const MyNav = styled.div`
   }
 `;
 
-const Navbar = () => {
+const styles = theme => ({
+  navTab: {
+    textDecoration: 'none',
+    padding: '0 10px',
+    fontWeight: 'bold',
+    color: 'white',
+    '&:selected': {
+      color: 'red',
+    },
+  },
+  navBar: {
+    backgroundColor: theme.palette.primary.main,
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  active: {
+    color: 'green',
+  },
+});
+
+const Navbar = (props) => {
+  const { classes } = props;
+
   return (
-    <MyNav>
-      <NavLink exact to='/'>Current Job</NavLink>
-      <NavLink to='/history'>Completed Jobs</NavLink>
-    </MyNav>
+    <>
+    <AppBar >
+    <Toolbar className={classes.navBar}>
+      <Tab className={classes.navTab} exact to='/' label="Current Job">Current Job</Tab>
+      <Tab className={classes.navTab} label = "Completed Jobs"to='/history'>Completed Jobs</Tab>
+    </Toolbar>
+  </AppBar>
+    </>
   );
 };
 
-export default Navbar;
+export default withStyles(styles)(Navbar);
