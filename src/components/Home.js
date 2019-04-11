@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { Object } from 'core-js';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -13,17 +14,17 @@ import DataForm from './DataForm';
 const styles = theme => ({
   container: {
     width: '50%',
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.dark,
     margin: '0 auto',
     padding: 20,
   },
-
-
+  header: {
+    marginBottom: 20,
+    color: theme.palette.primary.contrastText,
+  },
 });
 class Home extends React.Component {
   constructor(props) {
-    console.log(props);
-
     super(props);
     this.getCompletedJob = props.getCompletedJob.bind(this);
     this.state = {
@@ -37,11 +38,9 @@ class Home extends React.Component {
       running: false,
       clockInt: null,
     };
-    // this.state = { ...props };
   }
 
   componentDidMount() {
-    // this works: document.getElementById('favicon').href = 'http://www.cutestpaw.com/wp-content/uploads/2016/02/s-Kitty-yoga.%281%29.jpg'
     this.favicon = document.getElementById('favicon');
     this.favicon.href = stoppedFavicon;
     Object.keys(this.state).forEach(key => {
@@ -80,7 +79,10 @@ class Home extends React.Component {
       this.toggleClock();
     }
     this.setState({
-      totalTimer: 0, currentTimer: 0, jobStartTime: null, startTime: null,
+      totalTimer: 0,
+      currentTimer: 0,
+      jobStartTime: null,
+      startTime: null,
     });
   };
 
@@ -129,7 +131,7 @@ class Home extends React.Component {
     } else {
       this.favicon.href = stoppedFavicon;
       clearInterval(this.state.clockInt);
-      this.setState({ currentTimer: 0 });
+      this.setState({ currentTimer: 0, startTime: null });
     }
 
     this.setState({ running: !this.state.running });
@@ -163,15 +165,22 @@ class Home extends React.Component {
   render() {
     return (
       <Paper className={this.props.classes.container} elevation={20}>
+        <Typography className={this.props.classes.header} variant='h3'>Job Timer</Typography>
         <MyButton running={this.state.running} toggle={this.toggleClock} />
-        <Button variant='contained' onClick={this.resetClock}>Reset</Button>
+        <Button variant="contained" onClick={this.resetClock}>
+          Reset
+        </Button>
         <h3>Total Timer</h3>
-        <h4>Job started at: {this.state.jobStartTime}</h4>
+          {this.state.jobStartTime
+        && <h4>Job started at: {moment(this.state.jobStartTime).format('h:mm:ss')}</h4>
+          }
         <Clock running={this.state.running}>
           {this.formatTime(this.state.totalTimer)}
         </Clock>
         <h3>Current Timer</h3>
-        <h4>Current Timer started at {this.state.startTime}</h4>
+          {this.state.startTime
+        && <h4>Current Timer started at {moment(this.state.startTime).format('h:mm:ss')}</h4>
+          }
         <Clock running={this.state.running}>
           {this.formatTime(this.state.currentTimer)}
         </Clock>
@@ -184,7 +193,7 @@ class Home extends React.Component {
           amount={this.state.amount}
           jobName={this.state.jobName}
         />
-  </Paper>
+      </Paper>
     );
   }
 }

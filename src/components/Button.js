@@ -26,7 +26,6 @@ import { withStyles } from '@material-ui/core/styles';
 
 const MyButton = props => {
   const { classes } = props;
-  console.log(classes);
 
   //  const btnText = props.running : "stop" ? "start"; // why won't work?
   let btnText;
