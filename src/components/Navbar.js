@@ -28,7 +28,7 @@ const MyNav = styled.div`
 
     &.active {
       color: #65c343;
-  }
+    }
   }
 `;
 
@@ -47,22 +47,40 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
   },
+  navLink: {
+    textDecoration: 'none',
+    '&.active': {
+      color: 'orange',
+    },
+  },
   active: {
     color: 'green',
   },
 });
 
-const Navbar = (props) => {
+const Navbar = props => {
   const { classes } = props;
 
   return (
     <>
-    <AppBar >
-    <Toolbar className={classes.navBar}>
-      <Tab className={classes.navTab} exact to='/' label="Current Job">Current Job</Tab>
-      <Tab className={classes.navTab} label = "Completed Jobs"to='/history'>Completed Jobs</Tab>
-    </Toolbar>
-  </AppBar>
+      <AppBar>
+        <Toolbar className={classes.navBar}>
+          <NavLink to="/" exact className={classes.navLink}>
+            <Tab className={classes.navTab} label="Current Job">
+              Current Job
+            </Tab>
+          </NavLink>
+          <NavLink to="history" className={classes.navLink}>
+            <Tab
+              className={classes.navTab}
+              label="Completed Jobs"
+              to="/history"
+            >
+              Completed Jobs
+            </Tab>
+          </NavLink>
+        </Toolbar>
+      </AppBar>
     </>
   );
 };
