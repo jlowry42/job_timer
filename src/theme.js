@@ -5,8 +5,15 @@ import red from '@material-ui/core/colors/red';
 
 export default createMuiTheme({
   palette: {
-    primary: green,
+    primary: {main: green[500]},
     secondary: red,
 
+  },
+  overrides: { // not sure how to do overrides
+    /*
+    MuiButton: {
+      backgroundColor: 'black',
+    },
+    */
   },
 });

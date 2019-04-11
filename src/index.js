@@ -26,7 +26,9 @@ class App extends React.Component {
     };
   }
 
+
   componentDidMount() {
+    console.log(`theme: ${theme.palette}`);
     Object.keys(this.state).forEach(key => {
       if (localStorage.getItem(key)) {
         this.setState({ [key]: JSON.parse(localStorage.getItem(key)) });

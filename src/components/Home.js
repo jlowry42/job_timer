@@ -1,14 +1,29 @@
 import React from 'react';
 import { Object } from 'core-js';
-import runningFavicon from './../img/running_favicon.png';
-import stoppedFavicon from './../img/stopped_favicon.png';
-
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import runningFavicon from '../img/running_favicon.png';
+import stoppedFavicon from '../img/stopped_favicon.png';
 import Clock from './Clock';
-import { MyButton, ResetButton } from './Button';
+import MyButton from './Button';
 import DataForm from './DataForm';
 
+const styles = theme => ({
+  container: {
+    width: '50%',
+    backgroundColor: theme.palette.secondary.main,
+    margin: '0 auto',
+    padding: 20,
+  },
+
+
+});
 class Home extends React.Component {
   constructor(props) {
+    console.log(props);
+
     super(props);
     this.getCompletedJob = props.getCompletedJob.bind(this);
     this.state = {
@@ -45,7 +60,7 @@ class Home extends React.Component {
   componentDidUpdate() {
     localStorage.setItem(
       'currentTimer',
-      JSON.stringify(this.state.currentTimer)
+      JSON.stringify(this.state.currentTimer),
     );
     localStorage.setItem('totalTimer', JSON.stringify(this.state.totalTimer));
   }
@@ -64,7 +79,9 @@ class Home extends React.Component {
     if (this.state.running) {
       this.toggleClock();
     }
-    this.setState({ totalTimer: 0, currentTimer: 0, jobStartTime: null, startTime: null });
+    this.setState({
+      totalTimer: 0, currentTimer: 0, jobStartTime: null, startTime: null,
+    });
   };
 
   completeJob = e => {
@@ -77,8 +94,8 @@ class Home extends React.Component {
         time: this.formatTime(this.state.totalTimer),
         amount: this.state.amount,
         payPerHour: (
-          (this.state.amount / this.state.totalTimer) *
-          3600
+          (this.state.amount / this.state.totalTimer)
+          * 3600
         ).toFixed(2),
         finishDate: `${d.getUTCMonth() + 1}/${d.getUTCDate()}`,
       };
@@ -145,9 +162,9 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className="home">
+      <Paper className={this.props.classes.container} elevation={20}>
         <MyButton running={this.state.running} toggle={this.toggleClock} />
-        <ResetButton reset={this.resetClock} />
+        <Button variant='contained' onClick={this.resetClock}>Reset</Button>
         <h3>Total Timer</h3>
         <h4>Job started at: {this.state.jobStartTime}</h4>
         <Clock running={this.state.running}>
@@ -167,9 +184,9 @@ class Home extends React.Component {
           amount={this.state.amount}
           jobName={this.state.jobName}
         />
-      </div>
+  </Paper>
     );
   }
 }
 
-export default Home;
+export default withStyles(styles)(Home);
