@@ -1,26 +1,27 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import styled, { css } from 'styled-components';
+import Button from '@material-ui/core/Button';
 
-export const Button = styled.button`
-  max-width: 180px;
-  min-width: 100px;
-  padding: ${props => props.padding || '20px'};
-  font-size: 18px;
-  background: ${props => props.bgColor || 'red'};
-  color: white;
-  border-radius: 10px;
-  margin: 0 10px;
+// export const Button = styled.button`
+//   max-width: 180px;
+//   min-width: 100px;
+//   padding: ${props => props.padding || '20px'};
+//   font-size: 18px;
+//   background: ${props => props.bgColor || 'red'};
+//   color: white;
+//   border-radius: 10px;
+//   margin: 0 10px;
 
-  ${props => props.running
-  && css`
-      background: green;
-    `};
-  
-  &:hover {
-    font-weight: bold;
-    color: blue;
-  }
-`;
+//   ${props => props.running
+//   && css`
+//       background: green;
+//     `};
+
+//   &:hover {
+//     font-weight: bold;
+//     color: blue;
+//   }
+// `;
 
 export const MyButton = props => {
   //  const btnText = props.running : "stop" ? "start"; // why won't work?

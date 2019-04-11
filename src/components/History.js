@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+import Button from '@material-ui/core/Button';
 import StyledTable from './Table';
-import { Button } from './Button';
 import PopUpForm from './EditForm';
 
 class History extends React.Component {

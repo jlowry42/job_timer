@@ -1,10 +1,12 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import Home from './components/Home';
 import History from './components/History';
 import Navbar from './components/Navbar';
 import PopupForm from './components/EditForm';
+import theme from './theme';
 
 // all state lives in app? - NO! in home
 // clock just displays time - nope
@@ -30,11 +32,6 @@ class App extends React.Component {
         this.setState({ [key]: JSON.parse(localStorage.getItem(key)) });
       }
     });
-    // for (let key in this.state) {
-    //   if (localStorage.getItem(key)) {
-    //     this.setState({ [key]: JSON.parse(localStorage.getItem(key)) });
-    //   }
-    // }
   }
 
   editJob = e => {
@@ -83,14 +80,15 @@ class App extends React.Component {
         // using this callback function ensures it will run after setState
         localStorage.setItem(
           'completedJobs',
-          JSON.stringify(this.state.completedJobs)
+          JSON.stringify(this.state.completedJobs),
         );
-      }
+      },
     );
   };
 
   render() {
     return (
+      <MuiThemeProvider theme={theme}>
       <div className="App">
         <Navbar />
         <h1>Job Timer</h1>
@@ -114,6 +112,7 @@ class App extends React.Component {
           )}
         />
       </div>
+    </MuiThemeProvider>
     );
   }
 }
@@ -123,5 +122,5 @@ ReactDOM.render(
   <Router>
     <App />
   </Router>,
-  rootElement
+  rootElement,
 );
