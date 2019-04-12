@@ -172,14 +172,14 @@ class Home extends React.Component {
         </Button>
         <h3>Total Timer</h3>
           {this.state.jobStartTime
-        && <h4>Job started at: {moment(this.state.jobStartTime).format('h:mm:ss')}</h4>
+        && <h4>Job started at: {moment(this.state.jobStartTime).format('LT')}</h4>
           }
         <Clock running={this.state.running}>
           {this.formatTime(this.state.totalTimer)}
         </Clock>
         <h3>Current Timer</h3>
           {this.state.startTime
-        && <h4>Current Timer started at {moment(this.state.startTime).format('h:mm:ss')}</h4>
+        && <h4>Current Timer started at {moment(this.state.startTime).format('LTS')}</h4>
           }
         <Clock running={this.state.running}>
           {this.formatTime(this.state.currentTimer)}
