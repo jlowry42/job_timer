@@ -197,12 +197,6 @@ class Home extends React.Component {
           Job Timer
         </Typography>
         <MyButton running={this.state.running} toggle={this.toggleClock} />
-        <Button
-          onClick={() => this.setState({ snackIsOpen: true, message: 'test snackbar' })
-          }
-        >
-          snackbar
-        </Button>
         <Button variant="contained" onClick={this.resetClock}>
           Reset
         </Button>
