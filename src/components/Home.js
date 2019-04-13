@@ -10,6 +10,7 @@ import stoppedFavicon from '../img/stopped_favicon.png';
 import Clock from './Clock';
 import MyButton from './Button';
 import DataForm from './DataForm';
+import Snackbar from './Snackbar';
 
 const styles = theme => ({
   container: {
@@ -37,6 +38,9 @@ class Home extends React.Component {
       startTime: null,
       running: false,
       clockInt: null,
+      snackIsOpen: false,
+      message: null,
+      snackColor: null,
     };
   }
 
@@ -83,7 +87,14 @@ class Home extends React.Component {
       currentTimer: 0,
       jobStartTime: null,
       startTime: null,
+      snackIsOpen: true,
+      snackColor: 'yellow',
+      message: 'timer reset',
     });
+  };
+
+  closeSnackBar = () => {
+    this.setState({ snackIsOpen: false, message: null });
   };
 
   completeJob = e => {
@@ -103,10 +114,20 @@ class Home extends React.Component {
       };
       this.getCompletedJob(newJob);
       this.resetClock();
-      this.setState({ jobName: '', amount: '' });
+      this.setState({
+        jobName: '',
+        amount: '',
+        snackIsOpen: true,
+        snackColor: 'green',
+        message: 'job complete',
+      });
       localStorage.setItem('jobName', '');
       localStorage.setItem('amount', '');
     }
+  };
+
+  testSnack = () => {
+    this.setState({ snackIsOpen: true, message: 'testing' });
   };
 
   toggleClock = () => {
@@ -117,7 +138,12 @@ class Home extends React.Component {
         localStorage.setItem('jobStartTime', JSON.stringify(Date()));
       }
 
-      this.setState({ startTime: Date() }); // ??
+      this.setState({
+        startTime: Date(),
+        snackIsOpen: true,
+        snackColor: 'green',
+        message: 'timer started',
+      }); // ??
 
       const interval = setInterval(() => {
         this.setState(prevState => {
@@ -131,7 +157,9 @@ class Home extends React.Component {
     } else {
       this.favicon.href = stoppedFavicon;
       clearInterval(this.state.clockInt);
-      this.setState({ currentTimer: 0, startTime: null });
+      this.setState({
+        currentTimer: 0, startTime: null, snackIsOpen: true, message: 'timer stopped', snackColor: 'red',
+      });
     }
 
     this.setState({ running: !this.state.running });
@@ -165,22 +193,43 @@ class Home extends React.Component {
   render() {
     return (
       <Paper className={this.props.classes.container} elevation={20}>
-        <Typography className={this.props.classes.header} variant='h3'>Job Timer</Typography>
+        <Typography className={this.props.classes.header} variant="h3">
+          Job Timer
+        </Typography>
         <MyButton running={this.state.running} toggle={this.toggleClock} />
+        <Button
+          onClick={() => this.setState({ snackIsOpen: true, message: 'test snackbar' })
+          }
+        >
+          snackbar
+        </Button>
         <Button variant="contained" onClick={this.resetClock}>
           Reset
         </Button>
+        {this.state.snackIsOpen && (
+          <Snackbar
+            message={this.state.message}
+            snackIsOpen={this.state.snackIsOpen}
+            closeSnackBar={this.closeSnackBar}
+            color={this.state.snackColor}
+          />
+        )}
         <h3>Total Timer</h3>
-          {this.state.jobStartTime
-        && <h4>Job started at: {moment(this.state.jobStartTime).format('LT')}</h4>
-          }
+        {this.state.jobStartTime && (
+          <h4>
+            Job started at: {moment(this.state.jobStartTime).format('LT')}
+          </h4>
+        )}
         <Clock running={this.state.running}>
           {this.formatTime(this.state.totalTimer)}
         </Clock>
         <h3>Current Timer</h3>
-          {this.state.startTime
-        && <h4>Current Timer started at {moment(this.state.startTime).format('LTS')}</h4>
-          }
+        {this.state.startTime && (
+          <h4>
+            Current Timer started at{' '}
+            {moment(this.state.startTime).format('LTS')}
+          </h4>
+        )}
         <Clock running={this.state.running}>
           {this.formatTime(this.state.currentTimer)}
         </Clock>
