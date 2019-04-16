@@ -1,9 +1,17 @@
 type User {
   id: ID! @unique
   name: String!
+  password: String!
+  email: String
 }
 
 type Job {
   id: ID! @unique
   name: String!
+  pay_amount: Float!
+  pay_per_hour: Float # required?
+  time: Int!
+  start_date: String!
+  finish_date: String!
+  completed: Boolean!
 }
