@@ -158,7 +158,11 @@ class Home extends React.Component {
       this.favicon.href = stoppedFavicon;
       clearInterval(this.state.clockInt);
       this.setState({
-        currentTimer: 0, startTime: null, snackIsOpen: true, message: 'timer stopped', snackColor: 'red',
+        currentTimer: 0,
+        startTime: null,
+        snackIsOpen: true,
+        message: 'timer stopped',
+        snackColor: 'red',
       });
     }
 
@@ -214,9 +218,10 @@ class Home extends React.Component {
             Job started at: {moment(this.state.jobStartTime).format('LT')}
           </h4>
         )}
-        <Clock running={this.state.running}>
-          {this.formatTime(this.state.totalTimer)}
-        </Clock>
+        <Clock
+          running={this.state.running}
+          time={this.formatTime(this.state.totalTimer)}
+        />
         <h3>Current Timer</h3>
         {this.state.startTime && (
           <h4>
@@ -224,9 +229,10 @@ class Home extends React.Component {
             {moment(this.state.startTime).format('LTS')}
           </h4>
         )}
-        <Clock running={this.state.running}>
-          {this.formatTime(this.state.currentTimer)}
-        </Clock>
+        <Clock
+          running={this.state.running}
+          time={this.formatTime(this.state.currentTimer)}
+        />
         <h3>
           ${((this.state.amount / this.state.totalTimer) * 3600).toFixed(2)}
         </h3>
